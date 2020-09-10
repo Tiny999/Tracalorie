@@ -12,17 +12,17 @@ const ItemCtrl = (function(){
   // Data Structure (State)
   const state = {
     items: [
-      {id: 0, name: "stake dinner", calories: 1200},
-      {id: 1, name: "cookies", calories: 400},
-      {id: 2, name: "eggs", calories: 300}
+      {id: 0, name: "Stake Dinner", calories: 1200},
+      {id: 1, name: "Cookies", calories: 400},
+      {id: 2, name: "Eggs", calories: 300}
     ],
     currentItem:  null, 
     totalCalories: 0
   };
 
   return {
-    logData:  function () {
-      return state;
+    getItems: function(){
+      return state.items;
     }
   }
 })();
@@ -31,12 +31,29 @@ const ItemCtrl = (function(){
 
 // UI Controller
 const UICtrl = (function(){
-  
-  
+  const UISelectors = {
+    itemList: '#item-list'
+  }
+
 
   // Public Methods
   return {
+    populateItemList: function(items){
+      let html = '';
 
+      items.forEach(item => {
+        html += `
+          <li class="collection-item" id="${item.id}">
+            <strong>${item.name}:  </strong> <em>${item.calories} Calories</em>
+            <a href="#" class="secondary-content"><i class="edit-item fa fa-pencil"></i></a>
+          </li>
+        `;
+      });
+
+      // Insert List items
+      document.querySelector(UISelectors.itemList).innerHTML = html;
+
+    }
   }
 })();
 
@@ -49,8 +66,15 @@ const App = (function(ItemCtrl, UICtrl){
   // Public Methods
   return {
     init: function(){
-      console.log("initialized")
+      // Fetch Items from Data Structure
+      const items = ItemCtrl.getItems();
+
+      //Populate Item List
+      UICtrl.populateItemList(items);
     }
   }
 
 })(ItemCtrl, UICtrl);
+
+// Initialize App
+App.init();
