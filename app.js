@@ -27,14 +27,30 @@ const ItemCtrl = (function(){
   }
 })();
 
+
+
 // UI Controller
 const UICtrl = (function(){
   
+  
+
+  // Public Methods
+  return {
+
+  }
 })();
+
+
 
 // App Controller
 const App = (function(ItemCtrl, UICtrl){
-  
-  
+
+
+  // Public Methods
+  return {
+    init: function(){
+      console.log("initialized")
+    }
+  }
 
 })(ItemCtrl, UICtrl);
